@@ -1,0 +1,38 @@
+{
+  "name": "@compass-nft/minimal-reservoir-sync-node",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/Compass-NFT/minimal-reservoir-sync-node.git",
+  "author": "Peter Szoke <ps@jpegs.ro>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./src",
+    "start": "node dist/index.js",
+    "build": "tsc -b",
+    "dev": "nodemon -r dotenv/config 'src/index.ts' --exec 'TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node' src/index.ts -e ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.16.0",
+    "api": "^5.0.8",
+    "ioredis": "^5.3.2",
+    "moment": "^2.29.4",
+    "prisma": "^4.16.0",
+    "queue": "^6",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.10.0",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}

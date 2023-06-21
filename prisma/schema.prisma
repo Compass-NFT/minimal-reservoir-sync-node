@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Marketplace {
+  id      Int     @id @default(autoincrement())
+  name    String
+  domain  String
+  iconUrl String?
+  url     String?
+}
+
+model Ask {
+  id                String      @id
+  makerId           String
+  takerId           String
+  collectionId      String
+  tokenId           String
+  quantityFilled    Decimal     @db.Decimal
+  quantityRemaining Decimal     @db.Decimal
+  price             Decimal     @db.Decimal
+  priceCurrency     String
+  priceUsd          Decimal     @db.Decimal
+  priceNative       Decimal     @db.Decimal
+  feeBps            Int
+  status            OrderStatus @default(ACTIVE)
+  createdAt         DateTime
+  expiresAt         DateTime?
+  validFrom         DateTime?
+  marketplace       String
+  updatedAt         DateTime?
+
+  @@index([collectionId])
+  @@index([expiresAt])
+  @@index([makerId])
+  @@index([tokenId])
+  @@index([updatedAt])
+  @@index([createdAt])
+}
+
+model Bid {
+  id                String      @id
+  makerId           String
+  takerId           String
+  type              BidType
+  collectionId      String
+  tokenId           String?
+  attributeKey      String?
+  attributeValue    String?
+  quantityFilled    Decimal     @db.Decimal
+  quantityRemaining Decimal
+  price             Decimal     @db.Decimal
+  priceUsd          Decimal     @db.Decimal
+  priceCurrency     String
+  priceNative       Decimal     @db.Decimal
+  feeBps            Int
+  status            OrderStatus @default(ACTIVE)
+  createdAt         DateTime
+  expiresAt         DateTime?
+  validFrom         DateTime?
+  marketplace       String
+  updatedAt         DateTime?
+}
+
+model FlaggedToken {
+  id           String   @id
+  collectionId String
+  isFlagged    Boolean
+  updatedAt    DateTime
+}
+
+enum BidType {
+  COLLECTION
+  TOKEN
+  ATTRIBUTE
+  OTHER
+}
+
+enum OrderSide {
+  BUY
+  SELL
+}
+
+enum OrderStatus {
+  ACTIVE
+  CANCELLED
+  FILLED
+  INVALID
+  EXPIRED
+  INACTIVE
+}
